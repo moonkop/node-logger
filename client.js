@@ -1,4 +1,11 @@
 
+let debugLogConfig = {
+  url: 'http://192.168.1.174:4000',   //change it to your host
+  route: '/log',
+  method: 'post',
+  crackConsole: false
+}
+
 function remoteSend(contents,level)
 {
   let cache = [];
