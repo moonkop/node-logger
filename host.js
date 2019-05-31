@@ -6,16 +6,21 @@ let fs = require('fs');
 const url = require('url');
 //开启本地http服务，监听相应端口号
 let querystring = require('querystring');
-
 let router = {
   log: {
     handler: function (query,req,res) {
-
-
       let queryArr =JSON.parse(query.data);
-
-      console.log.apply(null,queryArr)
+      let level = 'log';
+      if (query.level){
+        level = query.level;
+      }
+      console[level].apply(null,queryArr);
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Request-Method', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+      res.setHeader('Access-Control-Allow-Headers', '*');
       res.end("");
+
     }
   }
 };
