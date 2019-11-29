@@ -4,6 +4,7 @@ let http = require('http');
 let fs = require('fs');
 //引入url模块
 const url = require('url');
+const WebSocket=require('ws');
 //开启本地http服务，监听相应端口号
 let querystring = require('querystring');
 let router = {
@@ -71,3 +72,16 @@ function readFileAndResponse(pathname, response) {
     }
   });
 }
+
+
+const wsServer = new WebSocket.Server({port: 12360});
+
+wsServer.on('connection',function connection(ws){
+    console.log('ws-log connected');
+    ws.on('message',function incoming(message){
+        let obj = JSON.parse(message);
+        console[obj.type].apply(null,obj.content)
+    });
+});
+
+
